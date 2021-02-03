@@ -1,4 +1,4 @@
-package iti.passwordvalidator.common.exception
+package iti.passwordvalidator.domain.exception
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus

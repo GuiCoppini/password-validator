@@ -1,7 +1,7 @@
 package iti.passwordvalidator.domain.service
 
-import iti.passwordvalidator.common.exception.InternalArchitectureException
 import iti.passwordvalidator.common.logging.LogUtils.getLogger
+import iti.passwordvalidator.domain.exception.InternalArchitectureException
 import iti.passwordvalidator.domain.model.Constraint
 import iti.passwordvalidator.domain.validator.Validator
 import org.springframework.stereotype.Service

@@ -2,7 +2,7 @@ package iti.passwordvalidator.domain.service
 
 import io.mockk.every
 import io.mockk.mockk
-import iti.passwordvalidator.common.exception.InternalArchitectureException
+import iti.passwordvalidator.domain.exception.InternalArchitectureException
 import iti.passwordvalidator.domain.model.Constraint
 import iti.passwordvalidator.domain.validator.Validator
 import org.junit.jupiter.api.Assertions.assertEquals

@@ -1,6 +1,6 @@
 package iti.passwordvalidator.common.logging
 
-import iti.passwordvalidator.common.exception.InternalArchitectureException
+import iti.passwordvalidator.domain.exception.InternalArchitectureException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.math.BigInteger
