@@ -4,6 +4,12 @@ critérios pré-definidos, chamados de "Constraint" na aplicalção.
 
 ### Índice
 * [Frameworks e dependências](#frameworks-e-dependências)
+* [Como rodar](#como-rodar-a-aplicao)
+* [Estrutura](#estrutura-da-aplicao)
+* [Como funciona](#como-funciona-a-aplicao)
+* [Testes](#testes)
+* [Curls](#curls)
+* [Swagger](#swagger)
 
 
 ## Frameworks e dependências
