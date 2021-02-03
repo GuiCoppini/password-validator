@@ -1,6 +1,5 @@
 package iti.passwordvalidator.common.logging
 
-import iti.passwordvalidator.domain.exception.InternalArchitectureException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.math.BigInteger
@@ -19,8 +18,9 @@ object LogUtils {
             digest.reset()
             digest.update(password.toByteArray(charset("utf8")))
         } catch (e: Exception) {
-            log.error(String.format("Error while hashing password, raising InternalArchitectureException"), e)
-            throw InternalArchitectureException("Error while hashing password. Please contact the developer(s)")
+            log.error(String.format("Error while hashing password, returning [REDACTED]"), e)
+            // nao vou estourar erro pois log eh nao-funcional e tem porque parar a aplicacao por isso
+            return "[REDACTED]"
         }
         return String.format("%040x", BigInteger(1, digest!!.digest()))
     }

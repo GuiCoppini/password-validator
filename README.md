@@ -39,8 +39,12 @@ Como a aplicação faz um processamente extremamente leve, não foi necessário 
 é um @Cacheable padrão no service que permite que a aplicação deixe a resposta booleana cacheada por alguns minutos.
 
 A escolha da aplicação ser sem banco foi tomada levando em conta que o tempo de processamento de uma String, na imensa maioria das vezes,
-seria muito mais eficiente do que um I/O para buscar uma senha no banco e ver se já foi computada. No entando, caso fosse necessário
-persistir isso de alguma maneira, o ideal seria utilizar algum Hash sobre a senha para que ela não ficasse em plaintext no banco, assim como fiz na hora de loggar.  
+seria muito mais eficiente do que um I/O para buscar uma senha no banco e ver se já foi computada.  
+No entando, caso fosse necessário persistir isso de alguma maneira,
+o ideal seria utilizar algum Hash sobre a senha para que ela não ficasse em plaintext no banco,
+assim como fiz na hora de loggar.  
+E sobre a escolha do banco, como não há JOINs, UPDATEs e DELETEs e as únicas operações que seriam executada são INSERTs e SELECTs, 
+o melhor candidato que temos é algum banco não-relacional, como MongoDB, por exemplo.  
 
 ## Como funciona a aplicação?
 Com a estrutura da aplicação explicada, vamos ao funcionamento da aplicação.
@@ -76,10 +80,21 @@ na PasswordProcessorService, Service que faz o orquestramento entre pegar o vali
 
 TODO: Colocar diagrama aqui
 
+##### RestExceptionHandler
+Há uma classe RestExceptionHandler que é basicamente um @ControllerAdvice que tratará as exceptions geradas pela aplicação.
+A ideia dessa classe é loggar a exception recebida e retornar o payload de erro necessário. Fiz essa camada para evitar 
+retornar a mensagem crua da exception direto para o cliente, evitando possíveis falhas de segurança e mostrando código/classes e pacotes para quem
+não deveria ter acesso. 
 
 ## Testes
 No projeto, foram implementados testes unitários (em Services) e testes integrados (na interface).
 Como a aplicação não possui banco, não foi necessário um Banco Embedded ou um TestContainer para realizar os testes integrados.
+
+## Logs
+Como disse anteriormente, a aplicação conta com o Sleuth, uma dependência que fornece, entre outras coisas,
+IDs de tracing nos logs especificamente para sistemas distribuídos.
+Os logs estão espalhados pelo sistema e indicam os critérios/constraints utilizados na validação da senha 
+e quais Validators foram utilizados para cada constraint, facilitando a visualização do fluxo como um todo via log.
 
 #### Coverage
 A covertura de testes está acima de 90%, podemos ver isso pelo relatório gerado pelo JaCoCo:
