@@ -1,6 +1,6 @@
 # Password-Validator
 Password-Validator é uma aplicação escrita em Kotlin + SpringBoot e é capaz de validar uma senha com base em alguns
-critérios pré-definidos, chamados de "Constraint" na aplicalção.
+critérios pré-definidos, chamados de "Constraint" na aplicação.
 
 ### Índice
 * [Frameworks e dependências](#frameworks-e-dependências)
@@ -110,7 +110,7 @@ No projeto, foram implementados testes unitários (em Services) e testes integra
 Como a aplicação não possui banco, não foi necessário um Banco Embedded ou um TestContainer para realizar os testes integrados.
 
 #### Coverage
-A covertura de testes está acima de 90%, podemos ver isso pelo relatório gerado pelo JaCoCo:
+A cobertura de testes está acima de 90%, podemos ver isso pelo relatório gerado pelo JaCoCo:
 ```
 ./gradlew clean build jacocoTestReport
 ```
