@@ -6,7 +6,6 @@ critérios pré-definidos, chamados de "Constraint" na aplicalção.
 * [Frameworks e dependências](#frameworks-e-dependências)
 
 
-
 ## Frameworks e dependências
 A aplicação, como dito anteriormente foi escrita em Kotlin + SpringBoot, a ferramenta de build utilizada foi o Gradle.
 
@@ -91,15 +90,40 @@ não deveria ter acesso.
 No projeto, foram implementados testes unitários (em Services) e testes integrados (na interface).
 Como a aplicação não possui banco, não foi necessário um Banco Embedded ou um TestContainer para realizar os testes integrados.
 
-## Logs
-Como disse anteriormente, a aplicação conta com o Sleuth, uma dependência que fornece, entre outras coisas,
-IDs de tracing nos logs especificamente para sistemas distribuídos.
-Os logs estão espalhados pelo sistema e indicam os critérios/constraints utilizados na validação da senha 
-e quais Validators foram utilizados para cada constraint, facilitando a visualização do fluxo como um todo via log.
-
 #### Coverage
 A covertura de testes está acima de 90%, podemos ver isso pelo relatório gerado pelo JaCoCo:
 ```
 ./gradlew clean build jacocoTestReport
 ```
 O HTML com os resultados dos testes ficarão no diretório `build/reports/jacoco/test/html/index.html` 
+
+## Curls
+Curl para uma senha inválida:
+```
+curl  -i --location --request POST 'http://localhost:8080/password/validate' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "password": "invalida"
+}'
+```
+
+Curl para uma senha válida:
+```
+curl  -i --location --request POST 'http://localhost:8080/password/validate' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "password": "PerfCt!123"
+}'
+```
+
+## Swagger
+Coloquei o Swagger na aplicação para que seja gerada uma página com a documentação automaticamente. Você pode ver a doc do Swagger via:
+```
+http://localhost:8080/swagger-ui.html
+```
+
+## Logs
+Como disse anteriormente, a aplicação conta com o Sleuth, uma dependência que fornece, entre outras coisas,
+IDs de tracing nos logs especificamente para sistemas distribuídos.
+Os logs estão espalhados pelo sistema e indicam os critérios/constraints utilizados na validação da senha 
+e quais Validators foram utilizados para cada constraint, facilitando a visualização do fluxo como um todo via log.
