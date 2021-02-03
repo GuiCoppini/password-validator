@@ -6,6 +6,7 @@ import iti.passwordvalidator.rest.payload.ErrorPayload
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
+import org.springframework.web.HttpMediaTypeNotSupportedException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
@@ -30,8 +31,8 @@ class RestExceptionHandler {
         return ResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException::class)
-    fun handleHttpMessageNotReadableException(e: HttpMessageNotReadableException): ResponseEntity<ErrorPayload> {
+    @ExceptionHandler(HttpMessageNotReadableException::class, HttpMediaTypeNotSupportedException::class)
+    fun handleHttpMessageErrorException(e: Exception): ResponseEntity<ErrorPayload> {
         log.error("Error while reading HTTP Message, this was a bad request", e)
 
         val response = ErrorPayload(400, "Error while reading HTTP message, please check your request")

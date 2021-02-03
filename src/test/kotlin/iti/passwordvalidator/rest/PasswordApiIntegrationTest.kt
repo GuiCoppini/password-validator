@@ -1,8 +1,10 @@
 package iti.passwordvalidator.rest
 
 import iti.passwordvalidator.PasswordValidatorApplication
+import iti.passwordvalidator.rest.payload.ErrorPayload
 import iti.passwordvalidator.rest.payload.ValidateRequest
 import iti.passwordvalidator.rest.payload.ValidateResponse
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.postForEntity
+import org.springframework.http.HttpStatus
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 
@@ -19,6 +22,28 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 internal class PasswordApiIntegrationTest {
     @Autowired
     lateinit var client: TestRestTemplate
+
+    @Test
+    internal fun `Returns ErrorPayload and 400 when request has null password`() {
+        val request = """{
+                "password" : null
+            }""".trimMargin()
+
+        val validationResult = client.postForEntity<ErrorPayload>("/password/validate", request)
+
+        assertEquals(HttpStatus.BAD_REQUEST.value(), validationResult.body!!.code)
+        assertEquals(HttpStatus.BAD_REQUEST, validationResult.statusCode)
+    }
+
+    @Test
+    internal fun `Returns ErrorPayload and 400 when request is an empty JSON`() {
+        val request = "{}"
+
+        val validationResult = client.postForEntity<ErrorPayload>("/password/validate", request)
+
+        assertEquals(HttpStatus.BAD_REQUEST.value(), validationResult.body!!.code)
+        assertEquals(HttpStatus.BAD_REQUEST, validationResult.statusCode)
+    }
 
     @Test
     internal fun `Returns false when password breaks minimum size constraint`() {

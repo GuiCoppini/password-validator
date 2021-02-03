@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
 import org.springframework.http.converter.HttpMessageNotReadableException
+import org.springframework.web.HttpMediaTypeNotSupportedException
 
 internal class RestExceptionHandlerTest {
 
@@ -44,7 +45,7 @@ internal class RestExceptionHandlerTest {
         val exceptionMessage = "ORIGINAL MESSAGE"
         val thrownExc = HttpMessageNotReadableException(exceptionMessage)
 
-        val response = handler.handleHttpMessageNotReadableException(thrownExc)
+        val response = handler.handleHttpMessageErrorException(thrownExc)
 
         assertEquals(HttpStatus.BAD_REQUEST, response.statusCode)
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.body!!.code)
@@ -52,4 +53,19 @@ internal class RestExceptionHandlerTest {
         // nao populou o body com a mensagem da exception
         assertNotEquals(exceptionMessage, response.body!!.message)
     }
+
+    @Test
+    internal fun `HttpMediaTypeNotSupportedException should return 400`() {
+        val exceptionMessage = "ORIGINAL MESSAGE"
+        val thrownExc = HttpMediaTypeNotSupportedException(exceptionMessage)
+
+        val response = handler.handleHttpMessageErrorException(thrownExc)
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.statusCode)
+        assertEquals(HttpStatus.BAD_REQUEST.value(), response.body!!.code)
+
+        // nao populou o body com a mensagem da exception
+        assertNotEquals(exceptionMessage, response.body!!.message)
+    }
+
 }
