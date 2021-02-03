@@ -23,8 +23,6 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.springframework.boot:spring-boot-starter-web:2.3.0.RELEASE")
 
-	implementation("javax.validation:validation-api:2.0.1.Final")
-
 	implementation("io.springfox:springfox-swagger2:2.9.2")
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")
 	
