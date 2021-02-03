@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController
 class PasswordController(val service: PasswordProcessorService) {
     val log = getLogger(this::class.java)
 
-
     @PostMapping("/validate")
     @ResponseBody
     @ApiOperation("Validates a password based on pre-defined constraints")

@@ -78,7 +78,8 @@ validação ele vai usar; então num futuro hipotético, podemos resolver valida
 No entando, essa interface foi criada porém não foi usada ainda, pois quem consome a API REST sempre vai ser validado sob as Constraints padrão, definidas 
 na PasswordProcessorService, Service que faz o orquestramento entre pegar o validator da Factory e chamar seu método de validação
 
-TODO: Colocar diagrama aqui
+![Diagrama](media/Diagram.png)
+
 
 ##### RestExceptionHandler
 Há uma classe RestExceptionHandler que é basicamente um @ControllerAdvice que tratará as exceptions geradas pela aplicação.

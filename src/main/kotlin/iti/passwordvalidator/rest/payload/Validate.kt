@@ -1,6 +1,7 @@
 package iti.passwordvalidator.rest.payload
 
 import io.swagger.annotations.ApiModelProperty
+import javax.validation.constraints.NotNull
 
 // objeto de response desacoplado do backend pois no futuro eh possivel adicionar/remover informacoes dele
 data class ValidateResponse(
@@ -12,5 +13,6 @@ data class ValidateResponse(
 data class ValidateRequest(
         @ApiModelProperty(value = "Password that will be validated",
                 example = "MyPassword!!123")
+        @field:NotNull
         val password: String
 )
