@@ -92,6 +92,19 @@ A ideia dessa classe é loggar a exception recebida e retornar o payload de erro
 retornar a mensagem crua da exception direto para o cliente, evitando possíveis falhas de segurança e mostrando código/classes e pacotes para quem
 não deveria ter acesso. 
 
+##### Premissas
+As premissas que tomei para o desenvolvimento da aplicação foram:
+* O cliente não deve saber quais critérios sua senha está deixando de passar
+  * Imaginei que, por algum motivo de segurança, não fosse legal retornar isso na API
+
+* Alguém poderá, no futuro, decidir quais critérios serão validados na senha
+  * Deixando a lógica de domínio flexível a isso nos permite fazer uma interface rígida (como a que existe)
+  ou uma interface flexível e vender o validador como um produto para outras empresas com seus próprios critérios
+
+* Além do caractere ESPAÇO, há outros caracteres inválidos.
+  * Eu considerei que tudo que for diferente das letras válidas, números válidos e caracteres especiais válidos, será levado como um
+  caractere inválido, como espaço, ponto etc.
+
 ## Testes
 No projeto, foram implementados testes unitários (em Services) e testes integrados (na interface).
 Como a aplicação não possui banco, não foi necessário um Banco Embedded ou um TestContainer para realizar os testes integrados.
